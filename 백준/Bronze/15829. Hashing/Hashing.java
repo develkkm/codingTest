@@ -1,4 +1,5 @@
 import java.io.*;
+import java.math.BigInteger;
 import java.util.*;
 
 class Main{
@@ -10,16 +11,16 @@ class Main{
         int n = Integer.parseInt(br.readLine());
         String str = br.readLine();
         int[] arr = new int[n];
-        long result = 0;
+        BigInteger result = BigInteger.valueOf(0);
 
         for (int i = 0; i < n; i++) {
             arr[i] = str.charAt(i) - 'a' + 1;
         }
 
         for (int i = 0; i < n; i++) {
-            result += (long)(Math.pow(31,i) * arr[i]);
+            result = result.add(BigInteger.valueOf(arr[i]).multiply(BigInteger.valueOf(31).pow(i)));
         }
 
-        System.out.println(result);
+        System.out.println(result.remainder(BigInteger.valueOf(1234567891)));
     }
 }
