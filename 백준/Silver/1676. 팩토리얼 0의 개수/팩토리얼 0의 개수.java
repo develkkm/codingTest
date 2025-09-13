@@ -1,0 +1,19 @@
+import java.io.*;
+import java.util.*;
+
+class Main{
+    static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+    static StringBuilder sb = new StringBuilder();
+    static StringTokenizer st;
+
+    public static void main(String[] args) throws IOException{
+        int num = Integer.parseInt(br.readLine());
+        int count = 0;
+
+        while (num >= 5) {
+            count += num / 5;
+            num /= 5;
+        }
+        System.out.println(count);
+    }
+}
