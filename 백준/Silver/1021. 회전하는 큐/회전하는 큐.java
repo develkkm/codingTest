@@ -14,46 +14,45 @@ class Main{
         int n = Integer.parseInt(st.nextToken());
         int m = Integer.parseInt(st.nextToken());
 
-        for (int i = 1; i <= n; i++) {
+        for (int i = 1; i <= n ; i++) {
             dq.add(i);
         }
 
-        arr = new int[m];
         st = new StringTokenizer(br.readLine());
+        arr = new int[m];
         for (int i = 0; i < m; i++) {
             arr[i] = Integer.parseInt(st.nextToken());
         }
 
-        minqueue();
+        roundQ();
 
         System.out.println(cnt);
     }
 
-    private static void minqueue() {
-
+    private static void roundQ() {
         for (int i = 0; i < arr.length; i++) {
-            int popIndex = dq.indexOf(arr[i]);
-            int middleIndex;
+            int middle;
+            int targetIdx = dq.indexOf(arr[i]);
 
             if(dq.size() % 2 == 0){
-                middleIndex = dq.size() / 2 - 1;
+                middle = dq.size() / 2 - 1;
             }
             else{
-                middleIndex = dq.size() / 2;
+                middle = dq.size() / 2;
             }
 
-            if(popIndex <= middleIndex){
-                for (int j = 0; j < popIndex; j++) {
+            if(targetIdx <= middle){
+                for (int j = 0; j < targetIdx; j++) {
                     dq.offerLast(dq.pollFirst());
                     cnt++;
                 }
-            }
-            else{
-                for (int j = 0; j < dq.size()-popIndex; j++) {
+            }else{
+                for (int j = 0; j < dq.size() - targetIdx; j++) {
                     dq.offerFirst(dq.pollLast());
                     cnt++;
                 }
             }
+
             dq.pollFirst();
         }
     }
