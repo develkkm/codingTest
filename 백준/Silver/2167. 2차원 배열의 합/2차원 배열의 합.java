@@ -19,6 +19,13 @@ class Main{
             }
         }
 
+        int[][] prefixSum = new int[n+1][m+1];
+        for (int i = 1; i <= n; i++) {
+            for (int j = 1; j <= m; j++) {
+                prefixSum[i][j] = prefixSum[i-1][j] + prefixSum[i][j-1] - prefixSum[i-1][j-1] + arr[i-1][j-1];
+            }
+        }
+
         int t = Integer.parseInt(br.readLine());
 
         while(t-->0){
@@ -28,12 +35,7 @@ class Main{
             int x2 = Integer.parseInt(st.nextToken());
             int y2 = Integer.parseInt(st.nextToken());
 
-            int sum = 0;
-            for (int i = x1-1; i <= x2-1; i++) {
-                for (int j = y1-1; j <= y2-1; j++) {
-                    sum+=arr[i][j];
-                }
-            }
+            int sum = prefixSum[x2][y2] - prefixSum[x2][y1-1] - prefixSum[x1-1][y2] + prefixSum[x1-1][y1-1];
 
             System.out.println(sum);
         }
