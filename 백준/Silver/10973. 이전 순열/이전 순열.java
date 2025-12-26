@@ -6,7 +6,7 @@ class Main{
     static StringBuilder sb = new StringBuilder();
     static StringTokenizer st;
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException{
         int n = Integer.parseInt(br.readLine());
 
         int[] arr = new int[n];
@@ -31,18 +31,18 @@ class Main{
         int len = arr.length;
 
         int pivotIdx = len - 1;
-        while(pivotIdx > 0 && arr[pivotIdx - 1] <= arr[pivotIdx]){
+        while(pivotIdx > 0 && arr[pivotIdx-1] < arr[pivotIdx]){
             pivotIdx--;
         }
 
         if(pivotIdx == 0) return false;
 
         int swapIdx = len - 1;
-        while(arr[swapIdx] > arr[pivotIdx - 1]){
+        while(arr[pivotIdx-1] < arr[swapIdx]){
             swapIdx--;
         }
 
-        swap(arr,pivotIdx - 1,swapIdx);
+        swap(arr,pivotIdx-1,swapIdx);
 
         int right = len - 1;
         while(pivotIdx < right){
@@ -52,9 +52,9 @@ class Main{
         return true;
     }
 
-    private static void swap(int[] arr, int idx1, int idx2){
-        int tmp = arr[idx1];
-        arr[idx1] = arr[idx2];
-        arr[idx2] = tmp;
+    private static void swap(int[] arr, int i, int j){
+        int tmp = arr[i];
+        arr[i] = arr[j];
+        arr[j] = tmp;
     }
 }
