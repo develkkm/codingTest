@@ -10,6 +10,7 @@ class Main{
         int n = Integer.parseInt(br.readLine());
 
         int[] arr = new int[n];
+        int[] pfSum = new int[n+1];
         for (int i = 0; i < n; i++) {
             st = new StringTokenizer(br.readLine());
             int m = Integer.parseInt(st.nextToken());
@@ -22,15 +23,11 @@ class Main{
 
         Arrays.sort(arr);
 
-        int[] pfSum = new int[n+1];
 
+        long sum = 0;
         for (int i = 1; i < n+1; i++) {
             pfSum[i] = pfSum[i-1] + arr[i-1];
-        }
-
-        int sum = 0;
-        for (int num : pfSum) {
-            sum+=num;
+            sum += pfSum[i];
         }
 
         System.out.println(sum);
