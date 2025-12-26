@@ -12,6 +12,8 @@ class Main{
         int[] arr = new int[6];
         int maxRow = 0;
         int maxCol = 0;
+        int maxRowIdx = 0;
+        int maxColIdx = 0;
         for (int i = 0; i < 6; i++) {
             st = new StringTokenizer(br.readLine());
             int direction = Integer.parseInt(st.nextToken());
@@ -19,56 +21,29 @@ class Main{
             arr[i] = length;
 
             if(direction == 1 || direction == 2){
-                maxRow = Math.max(maxRow, length);
+                if(length > maxRow){
+                    maxRow = length;
+                    maxRowIdx = i;
+                }
             }
 
             if(direction == 3 || direction == 4){
-                maxCol = Math.max(maxCol, length);
+                if(length > maxCol){
+                    maxCol = length;
+                    maxColIdx = i;
+                }
             }
         }
 
         int totalWidth = maxRow * maxCol;
 
-        int littleSquareRow = 0;
-        int littleSquareCol = 0;
+        int leftMaxRow = arr[(maxRowIdx + 5) % 6];
+        int rightMaxRow = arr[(maxRowIdx + 1) % 6];
+        int littleSquareRow = Math.abs(leftMaxRow - rightMaxRow);
 
-        for (int i = 0; i < 6; i++) {
-            if(arr[i] == maxRow){
-                int left = 0;
-                int right = 0;
-
-                if(i == 0){
-                    left = arr[5];
-                    right = arr[i+1];
-                }else if(i == 5){
-                    left = arr[i-1];
-                    right = arr[0];
-                }else{
-                    left = arr[i-1];
-                    right = arr[i+1];
-                }
-
-                littleSquareRow = Math.abs(left - right);
-            }
-
-            if(arr[i] == maxCol){
-                int left = 0;
-                int right = 0;
-
-                if(i == 0){
-                    left = arr[5];
-                    right = arr[i+1];
-                }else if(i == 5){
-                    left = arr[i-1];
-                    right = arr[0];
-                }else{
-                    left = arr[i-1];
-                    right = arr[i+1];
-                }
-                
-                littleSquareCol = Math.abs(left - right);
-            }
-        }
+        int leftMaxCol = arr[(maxColIdx + 5) % 6];
+        int rightMaxCol = arr[(maxColIdx + 1) % 6];
+        int littleSquareCol = Math.abs(leftMaxCol - rightMaxCol);
 
         System.out.println((totalWidth - (littleSquareCol * littleSquareRow)) * n );
     }
