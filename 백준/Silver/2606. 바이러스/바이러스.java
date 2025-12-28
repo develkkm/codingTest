@@ -5,46 +5,40 @@ class Main{
     static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
     static StringBuilder sb = new StringBuilder();
     static StringTokenizer st;
-    static int[][] adj;
-    static ArrayList<Integer> track = new ArrayList<>();
     static boolean[] visited;
-    static int v;
-    static int e;
-    static int start = 1;
+    static int cnt = 0;
+    static int n,m;
+    static int[][] arr;
 
     public static void main(String[] args) throws IOException{
-        v = Integer.parseInt(br.readLine());
-        e = Integer.parseInt(br.readLine());
-        adj = new int[v+1][v+1];
-        visited = new boolean[v+1];
+        n = Integer.parseInt(br.readLine());
+        m = Integer.parseInt(br.readLine());
 
-        while(e-->0){
+        arr = new int[n+1][n+1];
+        visited = new boolean[n+1];
+
+        for (int i = 0; i < m; i++) {
             st = new StringTokenizer(br.readLine());
-            int s = Integer.parseInt(st.nextToken());
-            int e = Integer.parseInt(st.nextToken());
+            int start = Integer.parseInt(st.nextToken());
+            int end = Integer.parseInt(st.nextToken());
 
-            adj[s][e] = 1;
-            adj[e][s] = 1;
+            arr[start][end] = 1;
+            arr[end][start] = 1;
         }
 
-        ArrayDeque<Integer> dq = new ArrayDeque<>();
-        dq.addLast(start);
+        dfs(1);
 
-        while(!dq.isEmpty()){
-            int cur = dq.removeFirst();
+        System.out.println(cnt-1);
+    }
 
-            if(!visited[cur]){
-                visited[cur] = true;
-                track.add(cur);
-            }
+    private static void dfs(int start) {
+        if(visited[start]) return;
 
-            for (int i = 1; i < v+1; i++) {
-                if(!visited[i] && adj[cur][i] == 1){
-                    dq.addLast(i);
-                }
-            }
+        visited[start] = true;
+        cnt++;
+        for (int i = 1; i <= n; i++) {
+            if(arr[start][i] == 1)
+                dfs(i);
         }
-
-        System.out.println(track.size()-1);
     }
 }
